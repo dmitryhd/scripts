@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 
+print ('omg')
 def left (arg):
   return 2*(arg + 1)-1
 
