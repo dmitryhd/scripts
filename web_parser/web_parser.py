@@ -1,10 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 
 # get ru, $ rate from bank
 # https://github.com/dmitryhd/scripts.git
 
 import urllib
+import unittest
 from bs4 import BeautifulSoup
 
 def get_rate():
@@ -15,5 +16,9 @@ def get_rate():
     soup = BeautifulSoup(html)
     return float(soup.find(attrs={"class": field_class}).contents[-1].replace(',', '.'))
 
+class TaskWebGet(unittest.TestCase):
+    def test_main_page(self):
+        assert get_rate()
+
 if __name__ == '__main__':
-    print(get_rate())
+    unittest.main()
