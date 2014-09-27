@@ -1,14 +1,11 @@
-#!/usr/bin/python3
+import unittest
 
-
-class TestSimple ():
-    1;5R
-    def __init__(self):
+class TestFunc(unittest.TestCase):
+    def setUp(self):
         pass
 
-    @staticmethod
-    def test_multiplication():
-        assert 5*3 == 15, 'omg, wtf!'
-    @staticmethod
-    def test_multiplication2()
-        assert 5*5 == 20, 'omg, wtf!'
+    def test_any(self):
+        pass
+
+if __name__ == '__main__':
+    unittest.main()
