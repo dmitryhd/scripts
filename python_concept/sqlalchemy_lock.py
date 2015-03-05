@@ -36,9 +36,9 @@ result = conn.execute(s)
 #result.close()
 
 # This is real reason of database lock
-#conn.close()
+conn.close()
 
 engine.execute('drop database foo;')
-#engine.dispose()
+engine.dispose()
 
 #engine2 = create_engine('mysql+pymysql://root:111111@localhost/', echo=True, echo_pool=True)
