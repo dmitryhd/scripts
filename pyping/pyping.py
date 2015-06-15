@@ -4,6 +4,15 @@ import sys
 import time
 import argparse
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def ping(ip_addr):
     """ Return True if server is up. """
@@ -23,21 +32,22 @@ def pingloop(ip_addr):
         if res:
             uptime += cur_time - last_time
             out = 'UP'
+            color = bcolors.OKGREEN + bcolors.BOLD
         else:
             out = 'DOWN'
             downtime += cur_time - last_time
+            color = bcolors.FAIL + bcolors.BOLD
         last_time = cur_time
         total_time = uptime + downtime
         up_perc = round((uptime/total_time) * 100, 2)
         down_perc = round((downtime/total_time) * 100, 2)
-        sys.stdout.write("\r network is {}. uptime: {} ({} %), downtime: {} ({} %)".format(
-            out, human_readable_time(uptime), up_perc, human_readable_time(downtime), down_perc))
+        sys.stdout.write("\r{}{}{} uptime: {} ({} %), downtime: {} ({} %)".format(
+            color, out, bcolors.ENDC, human_readable_time(uptime), up_perc, human_readable_time(downtime), down_perc))
         time.sleep(1)
 
 
 def human_readable_time(sec):
     """ Return string n hours, n mins, n sec from sec. """
-    return str(int(sec))
     date = ''
     mins = int(sec / 60)
     if not mins:
