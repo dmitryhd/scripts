@@ -26,6 +26,8 @@ def pingloop(ip_addr):
     cur_time = last_time = time.time()
     uptime = 0
     downtime = 0
+    up_interval = 0
+    last_state = False
     while True:
         res = ping(ip_addr)
         cur_time = time.time()
@@ -33,16 +35,21 @@ def pingloop(ip_addr):
             uptime += cur_time - last_time
             out = 'UP'
             color = bcolors.OKGREEN + bcolors.BOLD
+            if last_state:
+                up_interval += cur_time - last_time
+            last_state = True
         else:
             out = 'DOWN'
             downtime += cur_time - last_time
             color = bcolors.FAIL + bcolors.BOLD
+            last_state = False
+            up_interval = 0
         last_time = cur_time
         total_time = uptime + downtime
         up_perc = round((uptime/total_time) * 100, 2)
         down_perc = round((downtime/total_time) * 100, 2)
-        sys.stdout.write("\r{}{}{} uptime: {} ({} %), downtime: {} ({} %)".format(
-            color, out, bcolors.ENDC, human_readable_time(uptime), up_perc, human_readable_time(downtime), down_perc))
+        sys.stdout.write("\r{}{}{}, interval {}, uptime: {} ({} %), downtime: {} ({} %)".format(
+            color, out, bcolors.ENDC, human_readable_time(up_interval), human_readable_time(uptime), up_perc, human_readable_time(downtime), down_perc))
         time.sleep(1)
 
 
