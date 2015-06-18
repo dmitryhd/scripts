@@ -2,7 +2,11 @@
 
 -- Prints all directories in given root directory.
 
-lua = require("lfs")
+package.path = package.path ..';/usr/share/lua/5.1/?'
+package.cpath = package.cpath ..';/usr/local/lib/lua/5.1/?.so'
+
+
+lfs = require"lfs"
 --path = '/usr/share/lua/5.1/lfs.so'
 --lfs = package.loadlib(path, "luaopen_socket")
 root = '/home/dmitryhd/.config/awesome/themes/'
