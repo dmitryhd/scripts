@@ -21,8 +21,10 @@ end
 function scandir(directory)
     local i, t, popen = 0, {}, io.popen
     for filename in popen('ls -a "'..directory..'"'):lines() do
-        i = i + 1
-        t[i] = filename
+        if isdir(root .. filename) then
+            i = i + 1
+            t[i] = filename
+        end
     end
     return t
 end
@@ -31,7 +33,5 @@ end
 print(root)
 dirs = scandir(root)
 for k, v in pairs( dirs ) do
-    if isdir(root .. v) then
-        print(k, v)
-    end
+    print(k, v)
 end
